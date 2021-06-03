@@ -14,7 +14,7 @@ function App() {
 
     const getFeeds = (pageNumber = 1, limit = 1) =>
         fetch(
-            `http://localhost:4000/flickr-feeds?pageNumber=${pageNumber}&limit=${limit}`
+            `${process.env.REACT_APP_BACKEND_URL}?pageNumber=${pageNumber}&limit=${limit}`
         )
             .then(resp => resp.json())
             .then(json => {
@@ -23,10 +23,9 @@ function App() {
                     setTotal(json.total)
                 } catch (err) {
                     console.log(err)
-                } finally {
-                    setLoading(false)
                 }
             })
+            .finally(() => setLoading(false))
 
     useEffect(() => {
         setLoading(true)
@@ -56,7 +55,9 @@ function App() {
                 {loading ? (
                     <CircularProgress />
                 ) : (
-                    feeds.map(val => <Card imgData={val} />)
+                    feeds.map((val, index) => (
+                        <Card key={index} imgData={val} />
+                    ))
                 )}
                 <br />
                 <Pagination

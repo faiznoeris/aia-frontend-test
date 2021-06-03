@@ -26,13 +26,10 @@ export default function ImgMediaCard(props) {
                         variant='body2'
                         color='textSecondary'
                         component='p'
-                    >
-                        <div
-                            dangerouslySetInnerHTML={{
-                                __html: imgData.description,
-                            }}
-                        />
-                    </Typography>
+                        dangerouslySetInnerHTML={{
+                            __html: imgData.description,
+                        }}
+                    />
                     <br />
                     {imgData.tags.split(' ').map(val => `${val} `)}
                 </CardContent>
